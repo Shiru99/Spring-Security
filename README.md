@@ -34,7 +34,7 @@ Spring Security is a Java/Java EE framework that provides authentication, author
 
 3. <b>Principal</b> (Currently logged in user)
 
-    A Principal represents a user's identity. It can be a String object having username on a simple level or a complex UserDetails object.
+    A Principal represents a user's identity. Principal allows us to visit different URLs within same domain with just one-time logging in a session.
 
 4. <b>GrantedAuthority</b> (permission or a right)
 
