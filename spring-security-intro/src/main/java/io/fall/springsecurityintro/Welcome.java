@@ -10,4 +10,14 @@ public class Welcome {
     public String sayWelcome() {
         return "Welcome to Spring Security Intro";
     }
+
+    @RequestMapping("/admin")
+    public String sayWelcomeAdmin() {
+        return "Welcome to Spring Security Intro, Admin";
+    }
+
+    @RequestMapping("/user")
+    public String sayWelcomeUser() {
+        return "Welcome to Spring Security Intro, User";
+    }
 }
