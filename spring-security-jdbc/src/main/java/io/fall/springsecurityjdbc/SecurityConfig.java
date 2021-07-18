@@ -8,7 +8,6 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -23,13 +22,35 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-        // schema - resources/schema.sql & data - resources/data.sql
-        auth.jdbcAuthentication().dataSource(dataSource);
-
+        /*  M-1  */  
         // auth.jdbcAuthentication().dataSource(dataSource)
         //     .withDefaultSchema()
         //     .withUser(User.withUsername("admin").password("1234").roles("ADMIN"))
         //     .withUser(User.withUsername("user").password("1234").roles("USER"));
+
+        /*  M-2  */
+        // schema - resources/schema.sql & data - resources/data.sql
+        auth.jdbcAuthentication().dataSource(dataSource);
+
+        /*  
+            by default jdbcAuthentication queries - 
+
+                auth.jdbcAuthentication()
+                    .dataSource(dataSource)
+                        .usersByUsernameQuery(
+                            "select username,password,enabled "+
+                            " from users "+
+                            " where username=?"
+                        )
+                        .authoritiesByUsernameQuery(
+                            "select username,authority "+
+                            " from authorities "+
+                            " where username=?"
+                        );
+
+            In case of external database we need to configure these default queries
+        */
+
     }
 
 
