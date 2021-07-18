@@ -42,14 +42,18 @@ springsecurity=> CREATE TABLE users (
    id   INT     PRIMARY KEY     NOT NULL,
    username VARCHAR(50) UNIQUE NOT NULL,
    password VARCHAR(50) NOT NULL,
-   roles VARCHAR(50),
-   active BOOLEAN NOT NULL
+   active BOOLEAN NOT NULL,
+   roles VARCHAR(50)
 );
 ```
 
+
 ***Insert New Table-entries***
 ```
-springsecurity=> INSERT INTO users VALUES (1, 'John Doe' , '1234', 'ROLE_USER', false);
+springsecurity=> INSERT INTO users VALUES (1, 'John Doe' , '1234', false, 'ROLE_USER');
+springsecurity=> INSERT INTO users VALUES (2, 'Jenny Doe' , '1234', True, 'ROLE_ADMIN');
+springsecurity=> INSERT INTO users VALUES (3, 'James Doe' , '1234', True, 'ROLE_USER');
+
 ```
 
 ***List of Tables***
