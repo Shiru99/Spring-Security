@@ -1,7 +1,5 @@
 package io.fall.springsecurityjpa;
 
-import java.sql.ResultSet;
-
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +8,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -17,8 +16,11 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired              // for embedded (in-memory) database
+    @Autowired
     DataSource dataSource;  
+
+    @Autowired
+    UserDetailsService userDetailsService;  // will use MyUserDetailsService bean
 
     // 1. Configure Spring Security Authentication
     @Override
@@ -50,19 +52,24 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         */
     /********************************************************************************/
 
-        System.out.println("*********************");
+        // System.out.println("*********************");
 
-        ResultSet tables = dataSource
-                            .getConnection()
-                            .getMetaData()
-                            .getTables(null, null, null, new String[] {"TABLE"});
+        // ResultSet tables = dataSource
+        //                     .getConnection()
+        //                     .getMetaData()
+        //                     .getTables(null, null, null, new String[] {"TABLE"});
 
-        while (tables.next()) {
-            String tableName=tables.getString("TABLE_NAME");
-            System.out.println(tableName);
-        }
+        // while (tables.next()) {
+        //     String tableName=tables.getString("TABLE_NAME");
+        //     System.out.println(tableName);
+        // }
 
-		System.out.println("*********************");
+		// System.out.println("*********************");
+
+    /********************************************************************************/
+
+        auth.userDetailsService(userDetailsService);
+
     }
 
 
